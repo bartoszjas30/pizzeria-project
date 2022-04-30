@@ -387,7 +387,9 @@
 
     announce(){
       const thisWidget = this;
-      const event = new Event('updated');
+      const event = new CustomEvent('updated', {
+        bubbles: true
+      });
       thisWidget.element.dispatchEvent(event);
     }
 
@@ -422,6 +424,11 @@
 
 
       });
+
+      thisCart.dom.productList.addEventListener('updated', function(){
+        thisCart.update();
+      });
+
     }
 
     add(menuProduct){
@@ -468,7 +475,7 @@
 
 
       if(thisCart.totalNumber == 0){
-        thisCart.totalPrice == 0
+        thisCart.totalPrice == 0;
       }else {
         thisCart.totalPrice = thisCart.subtotalPrice + deliveryFee;
       }
@@ -517,6 +524,19 @@
         thisCartProduct.dom.price.innerHTML = thisCartProduct.price;
 
       });
+    }
+
+    remove(){
+      const thisCartProduct = this;
+
+      const event = new CustomEvent('remove', {
+        bubbles: true,
+        detail: {
+          cartProduct:thisCartProduct,
+        },
+      });
+
+      thisCartProduct.dom.wrapper.dispatchEvent(event);
     }
 
 
