@@ -32,6 +32,7 @@ class Home {
       draggable: '>1',
     });
   }
+  //
   initLink() {
     const thisHome = this;
 
